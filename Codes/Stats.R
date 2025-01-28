@@ -429,8 +429,50 @@ s.waste.wide <-s.waste %>%
   pivot_wider(names_from = Type, values_from = Weight_g) %>% 
   as.data.frame() %>% 
   select(-House_ID)
+
 view(s.waste.wide)
 
 
+# Alimosho correlation
+Alimosho_cor <-s.waste.wide %>% 
+  filter(Local_Govt=="Alimosho") %>% 
+  select(-Local_Govt) %>% 
+  cor()
 
+corrplot(Alimosho_cor,  method =c("color"),
+         addCoef.col='black',
+         number.cex = 0.7,
+         tl.cex = 0.8, tl.col = 'black', 
+         type = "lower")
 
+##  Ikeja correlation
+Ikeja_cor <-s.waste.wide %>% 
+  filter(Local_Govt=="Ikeja") %>% 
+  select(-Local_Govt) %>% 
+  cor()
+
+corrplot(Ikeja_cor,  method =c("color"),
+         addCoef.col='black',
+         number.cex = 0.7,
+         tl.cex = 0.8, tl.col = 'black', 
+         type = "lower")
+
+##  Eti-Osa correlation
+Eti_Osa_cor <-s.waste.wide %>% 
+  filter(Local_Govt=="Eti-Osa") %>% 
+  select(-Local_Govt) %>% 
+  cor()
+
+corrplot(Eti_Osa_cor,  method =c("color"),
+         addCoef.col='black',
+         number.cex = 0.7,
+         tl.cex = 0.8, tl.col = 'black', 
+         type = "lower")
+
+## Overall correlation
+s.waste.cor <- cor(s.waste.wide [,-1])
+corrplot(s.waste.cor,  method =c("color"),
+         addCoef.col='black',
+         number.cex = 0.7,
+         tl.cex = 0.8, tl.col = 'black', 
+         type = "lower")
