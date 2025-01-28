@@ -492,3 +492,16 @@ all_waste_corr <- as.data.frame(rbind(Alimosho_cor,
 write.csv(all_waste_corr, 
           "C:\\Users\\DELL\\Documents\\Git in R\\Solid_Waste\\Data\\all_waste_corr.csv")
 
+#####################################################################################
+
+
+
+s.waste %>% 
+  group_by(Component, Type, Local_Govt) %>% 
+  summarise(mean_weight =round(mean(Weight_g),2) ,
+            SD_weight =round(sd(Weight_g), 2)) %>% 
+  as.data.frame() %>% 
+  write.csv("C:\\Users\\DELL\\Documents\\Git in R\\Solid_Waste\\Data\\summary_stats.csv")
+
+
+

@@ -1,0 +1,43 @@
+"","Component","Type","Local_Govt","mean_weight","SD_weight"
+"1","Metal","Bent spoons and cups","Alimosho",39.94,3.99
+"2","Metal","Bent spoons and cups","Eti-Osa",53.93,47.52
+"3","Metal","Bent spoons and cups","Ikeja",61.59,20.42
+"4","Metal","Bottle caps","Alimosho",50.12,8.39
+"5","Metal","Bottle caps","Eti-Osa",80.8,17.9
+"6","Metal","Bottle caps","Ikeja",58.79,12.36
+"7","Metal","Electrical and Mechanical parts","Alimosho",48.38,12.88
+"8","Metal","Electrical and Mechanical parts","Eti-Osa",145.05,34.98
+"9","Metal","Electrical and Mechanical parts","Ikeja",92.77,13.91
+"10","Metal","Empty drink cans","Alimosho",63.42,16.28
+"11","Metal","Empty drink cans","Eti-Osa",123.37,19.2
+"12","Metal","Empty drink cans","Ikeja",98.25,25.3
+"13","Organic","Egg shell","Alimosho",14.67,7.99
+"14","Organic","Egg shell","Eti-Osa",48.46,13.95
+"15","Organic","Egg shell","Ikeja",22.5,8.66
+"16","Organic","Plantain peel","Alimosho",60.87,17.66
+"17","Organic","Plantain peel","Eti-Osa",62.81,24.49
+"18","Organic","Plantain peel","Ikeja",59.96,13.32
+"19","Organic","Vegetables and Fruits","Alimosho",110.91,23.61
+"20","Organic","Vegetables and Fruits","Eti-Osa",172.54,14.79
+"21","Organic","Vegetables and Fruits","Ikeja",160.78,21.48
+"22","Organic","Yam & potatoe peel","Alimosho",68.27,29.69
+"23","Organic","Yam & potatoe peel","Eti-Osa",107.2,25.63
+"24","Organic","Yam & potatoe peel","Ikeja",118.42,17.25
+"25","Paper & Glass","Glass","Alimosho",81.25,23.01
+"26","Paper & Glass","Glass","Eti-Osa",162.7,14.78
+"27","Paper & Glass","Glass","Ikeja",77.81,16.01
+"28","Paper & Glass","Paper and Cartons","Alimosho",48.65,18.85
+"29","Paper & Glass","Paper and Cartons","Eti-Osa",71.78,9.9
+"30","Paper & Glass","Paper and Cartons","Ikeja",70.71,21.3
+"31","Plastic","Empty Water Sachets","Alimosho",49.73,10.49
+"32","Plastic","Empty Water Sachets","Eti-Osa",19.36,5.78
+"33","Plastic","Empty Water Sachets","Ikeja",25.57,13.23
+"34","Plastic","Fast-Food Packets","Alimosho",20.23,5.88
+"35","Plastic","Fast-Food Packets","Eti-Osa",102.74,12.27
+"36","Plastic","Fast-Food Packets","Ikeja",61.07,14.83
+"37","Plastic","Pet bottles","Alimosho",40.28,17.6
+"38","Plastic","Pet bottles","Eti-Osa",70.85,8.81
+"39","Plastic","Pet bottles","Ikeja",50.37,15.53
+"40","Plastic","Plastic Bottles","Alimosho",24.6,20.13
+"41","Plastic","Plastic Bottles","Eti-Osa",66.43,21.61
+"42","Plastic","Plastic Bottles","Ikeja",25,15.23
