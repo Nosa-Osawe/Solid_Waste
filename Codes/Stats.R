@@ -125,7 +125,7 @@ s.waste %>%
          Type=="Yam & potatoe peel") %>% 
   select(Local_Govt, Weight_g) %>% 
   ggplot(aes(x = Local_Govt, y = Weight_g)) +
-  geom_boxplot()+
+  geom_boxplot(color ="darkgreen")+
   labs(
     title = "Yam & potatoe peel",
     x = "Local Government",
@@ -444,6 +444,9 @@ corrplot(Alimosho_cor,  method =c("color"),
          number.cex = 0.7,
          tl.cex = 0.8, tl.col = 'black', 
          type = "lower")
+title(main = "Correlation Matrix for Waste Data in Alimosho", 
+      col.main = "Black", cex.main = 1.2)
+
 
 ##  Ikeja correlation
 Ikeja_cor <-s.waste.wide %>% 
@@ -456,6 +459,8 @@ corrplot(Ikeja_cor,  method =c("color"),
          number.cex = 0.7,
          tl.cex = 0.8, tl.col = 'black', 
          type = "lower")
+title(main = "Correlation Matrix for Waste Data in Ikeja", 
+      col.main = "Black", cex.main = 1.2)
 
 ##  Eti-Osa correlation
 Eti_Osa_cor <-s.waste.wide %>% 
@@ -468,6 +473,8 @@ corrplot(Eti_Osa_cor,  method =c("color"),
          number.cex = 0.7,
          tl.cex = 0.8, tl.col = 'black', 
          type = "lower")
+title(main = "Correlation Matrix for Waste Data in Eti-Osa", 
+      col.main = "Black", cex.main = 1.2)
 
 ## Overall correlation
 s.waste.cor <- cor(s.waste.wide [,-1])
@@ -476,3 +483,12 @@ corrplot(s.waste.cor,  method =c("color"),
          number.cex = 0.7,
          tl.cex = 0.8, tl.col = 'black', 
          type = "lower")
+title(main = "Correlation Matrix for Waste Data Across all LGA", 
+      col.main = "Black", cex.main = 1.2)
+
+
+all_waste_corr <- as.data.frame(rbind(Alimosho_cor,
+                                Ikeja_cor, Eti_Osa_cor, s.waste.cor))
+write.csv(all_waste_corr, 
+          "C:\\Users\\DELL\\Documents\\Git in R\\Solid_Waste\\Data\\all_waste_corr.csv")
+
