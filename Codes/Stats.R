@@ -368,8 +368,10 @@ lm_function("Weight_g",s.waste[s.waste$Type=="Glass",])
 ##############################################################################
 
 s.waste %>% 
-  select(Component, Weight_g) %>% 
-  ggplot(aes(x = Component, y = Weight_g)) +
+  group_by(Component,Local_Govt, House_ID) %>% 
+  summarise(sum_w_g=sum(Weight_g)) %>% 
+  select(Component, sum_w_g) %>% 
+  ggplot(aes(x = Component, y = sum_w_g)) +
   stat_summary(geom = "bar", fun = mean, position = position_dodge(width = 0.5), width = 0.6, 
                fill = "lightgrey") +
   stat_summary(geom = "errorbar", fun.data = function(x) {
@@ -380,7 +382,7 @@ s.waste %>%
                width = 0.2, colour = "black", size = 0.9) +
   labs(
     title = "Waste Components",
-    x = "Local Government",
+    x = "Wastes",
     y = "Weight (g)",
   ) +
   theme_classic() +
@@ -389,12 +391,27 @@ s.waste %>%
     plot.title = element_text(hjust = 0.5),
   ) 
 
-
+component <-s.waste %>% 
+  group_by(Component,Local_Govt, House_ID) %>% 
+  summarise(sum_w_g=sum(Weight_g)) %>%
+  as.data.frame() %>% 
+  select(Component, sum_w_g) %>% 
+  as.data.frame()
+  
+summary(component_anova <- aov(sum_w_g~Component,data =component ))
+agricolae::HSD.test(component_anova, trt = c("Component"), alpha = 0.05,
+                    group = TRUE)$groups
+  
+component %>% 
+  group_by(Component) %>% 
+  summarise(sd(sum_w_g))
 
 
 s.waste %>% 
-  select(Local_Govt, Weight_g) %>% 
-  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  select(-Type) %>% 
+  group_by(Local_Govt, House_ID) %>% 
+  summarise(sum_W_g= sum(Weight_g)) %>% 
+  ggplot(aes(x = Local_Govt, y = sum_W_g)) +
   stat_summary(geom = "bar", fun = mean, position = position_dodge(width = 0.5), 
                width = 0.6, 
                fill = "yellow") +
@@ -409,7 +426,7 @@ s.waste %>%
     width = 0.2, colour = "black", size = 0.9
   ) +
   labs(
-    title = "Waste Components",
+    title = " ",
     x = "Local Government",
     y = "Weight (g)"
   ) +
@@ -419,7 +436,21 @@ s.waste %>%
     plot.title = element_text(hjust = 0.5)
   )
 
+LGA.waste <-s.waste %>% 
+  select(-Type) %>% 
+  group_by(Local_Govt, House_ID) %>% 
+  summarise(sum_W_g= sum(Weight_g)) %>% 
+  as.data.frame()
 
+summary(LGA_anova <- aov(sum_W_g~Local_Govt,data =LGA.waste ))
+agricolae::HSD.test(LGA_anova, trt = c("Local_Govt"), alpha = 0.05,
+                    group = TRUE)$groups
+
+LGA.waste %>% 
+  group_by(Local_Govt) %>% 
+  summarise(sd(sum_W_g))
+  
+  
 #################################################################################
 
 s.waste<-as.data.frame(s.waste)
@@ -495,13 +526,17 @@ write.csv(all_waste_corr,
 #####################################################################################
 
 
-
+# Prepare the summary statistics in Excel
 s.waste %>% 
   group_by(Component, Type, Local_Govt) %>% 
   summarise(mean_weight =round(mean(Weight_g),2) ,
             SD_weight =round(sd(Weight_g), 2)) %>% 
   as.data.frame() %>% 
   write.csv("C:\\Users\\DELL\\Documents\\Git in R\\Solid_Waste\\Data\\summary_stats.csv")
+
+######################################################################################3
+
+head(s.waste)
 
 
 
