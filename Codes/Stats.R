@@ -1,6 +1,8 @@
 
 library(readxl)
 library(tidyverse)
+library(agricolae)
+library(corrplot)
 
 # Data is not real. This is purely fabricated
 # Just to keep things in shape!
@@ -101,8 +103,334 @@ s.waste <- read_excel("C:\\Users\\DELL\\Documents\\Git in R\\Solid_Waste\\Data\\
                       sheet = 'Sheet1')
 # view(s.waste) # OK
 
+lm_function <- function(dependent_var, data,  
+                        alpha = 0.05) { # -we can adjust the alpha level here
+  
+  formula <- as.formula(paste(dependent_var, "~ Local_Govt"))
+  lm_summary <- summary(lm_model <- lm(formula, data = data))
+  aov_summary <- summary(aov_model <- aov(formula, data = data))
+  hsd_groups <- agricolae::HSD.test(aov_model, trt = c("Local_Govt"), alpha = alpha, 
+                                    group = TRUE)$groups
+  
+  return(list(
+    lm_summary = lm_summary,
+    aov_summary = aov_summary,
+    hsd_groups = hsd_groups
+  ))
+}
+
+
 s.waste %>% 
   filter(Component=="Organic",
-         Type=="Yam & potatoe peel")
+         Type=="Yam & potatoe peel") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot()+
+  labs(
+    title = "Yam & potatoe peel",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 1),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Yam & potatoe peel",])
+
+s.waste %>% 
+  filter(Type=="Plantain peel") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g), ) +
+  geom_boxplot(color ="darkgreen")+
+  labs(
+    title = "Plantain peel",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5)
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Plantain peel",])
+
+s.waste %>% 
+  filter(Type=="Egg shell") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g), ) +
+  geom_boxplot(color ="darkgreen")+
+  labs(
+    title = "Egg shell",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Egg shell",])
+
+
+s.waste %>% 
+  filter(Type=="Vegetables and Fruits") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g), ) +
+  geom_boxplot(color ="darkgreen")+
+  labs(
+    title = "Vegetables and Fruits",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Vegetables and Fruits",])
+
+
+s.waste %>% 
+  filter(Type=="Empty drink cans") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g), ) +
+  geom_boxplot(color ="darkblue")+
+  labs(
+    title = "Empty Drink Cans",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Empty drink cans",])
+
+s.waste %>% 
+  filter(Type=="Bottle caps") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkblue")+
+  labs(
+    title = "Bottle caps",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Bottle caps",])
+
+
+
+s.waste %>% 
+  filter(Type=="Bent spoons and cups") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkblue")+
+  labs(
+    title = "Bent spoons and cups",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Bent spoons and cups",])
+
+
+s.waste %>% 
+  filter(Type=="Electrical and Mechanical parts") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkblue")+
+  labs(
+    title = "Electrical and Mechanical parts",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Electrical and Mechanical parts",])
+
+s.waste %>% 
+  filter(Type=="Pet bottles") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkred")+
+  labs(
+    title = "Pet bottles",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Pet bottles",])
+
+s.waste %>% 
+  filter(Type=="Empty Water Sachets") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkred")+
+  labs(
+    title = "Empty Water Sachets",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Empty Water Sachets",])
+
+s.waste %>% 
+  filter(Type=="Plastic Bottles") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkred")+
+  labs(
+    title = "Plastic Bottles",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Plastic Bottles",])
+
+s.waste %>% 
+  filter(Type=="Fast-Food Packets") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="darkred")+
+  labs(
+    title = "Fast-Food Packets",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Fast-Food Packets",])
+
+
+s.waste %>% 
+  filter(Type=="Paper and Cartons") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="black")+
+  labs(
+    title = "Paper and Cartons",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Paper and Cartons",])
+
+s.waste %>% 
+  filter(Type=="Glass") %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  geom_boxplot(color ="black")+
+  labs(
+    title = "Glass",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+lm_function("Weight_g",s.waste[s.waste$Type=="Glass",])
+
+##############################################################################
+
+s.waste %>% 
+  select(Component, Weight_g) %>% 
+  ggplot(aes(x = Component, y = Weight_g)) +
+  stat_summary(geom = "bar", fun = mean, position = position_dodge(width = 0.5), width = 0.6, 
+               fill = "lightgrey") +
+  stat_summary(geom = "errorbar", fun.data = function(x) {
+    data.frame(y = mean(x), 
+               ymin = mean(x) - sd(x),
+               ymax = mean(x) + sd(x))
+  },  position = position_dodge(width = 0.5),
+               width = 0.2, colour = "black", size = 0.9) +
+  labs(
+    title = "Waste Components",
+    x = "Local Government",
+    y = "Weight (g)",
+  ) +
+  theme_classic() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5),
+  ) 
+
+
+
+
+s.waste %>% 
+  select(Local_Govt, Weight_g) %>% 
+  ggplot(aes(x = Local_Govt, y = Weight_g)) +
+  stat_summary(geom = "bar", fun = mean, position = position_dodge(width = 0.5), 
+               width = 0.6, 
+               fill = "yellow") +
+  stat_summary(
+    geom = "errorbar", 
+    fun.data = function(x) {
+      data.frame(y = mean(x), 
+                 ymin = mean(x) - sd(x),
+                 ymax = mean(x) + sd(x))
+    }, 
+    position = position_dodge(width = 0.5),
+    width = 0.2, colour = "black", size = 0.9
+  ) +
+  labs(
+    title = "Waste Components",
+    x = "Local Government",
+    y = "Weight (g)"
+  ) +
+  theme_classic() +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+
+#################################################################################
+
+s.waste<-as.data.frame(s.waste)
+
+s.waste.wide <-s.waste %>%
+  select(-Component) %>% 
+  pivot_wider(names_from = Type, values_from = Weight_g) %>% 
+  as.data.frame() %>% 
+  select(-House_ID)
+view(s.waste.wide)
+
+
 
 
